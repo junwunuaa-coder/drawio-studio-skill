@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="openclaw" modified="2026-03-15T21:30:00.000Z" agent="assistant" version="24.0.0" type="device">
+  <diagram id="pc_arch_dark_template" name="Architecture-DarkTech">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="bg" value="" style="shape=rectangle;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#0b1220;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1600" height="1000" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="title" value="Architecture Diagram (Dark Tech Template)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=30;fontStyle=1;fontColor=#e6edf8;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="80" y="28" width="920" height="48" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="apex" value="Layer 1: Packaging / Platform" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=2;strokeColor=#f59e0b;fillColor=#1f2937;fontSize=16;fontStyle=1;fontColor=#fef3c7;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="120" y="110" width="1320" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="api" value="Layer 2A: Framework / API" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=2;strokeColor=#60a5fa;fillColor=#111827;fontSize=15;fontStyle=1;fontColor=#dbeafe;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="120" y="250" width="620" height="160" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="svc" value="Layer 2B: Service / Engine" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=2;strokeColor=#34d399;fillColor=#111827;fontSize=15;fontStyle=1;fontColor=#d1fae5;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="820" y="250" width="620" height="160" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ui" value="Layer 3: App / UI / Interaction" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=2;strokeColor=#a78bfa;fillColor=#111827;fontSize=15;fontStyle=1;fontColor=#ede9fe;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="120" y="470" width="1320" height="170" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="test" value="Layer 4: Tests / Validation" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;strokeWidth=2;strokeColor=#9ca3af;fillColor=#111827;fontSize=14;fontColor=#e5e7eb;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="380" y="700" width="800" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" value="pack" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#f59e0b;endArrow=block;endFill=1;fontColor=#fbbf24;" edge="1" parent="1" source="apex" target="api">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e2" value="pack" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#f59e0b;endArrow=block;endFill=1;fontColor=#fbbf24;" edge="1" parent="1" source="apex" target="svc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e3" value="API call" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#60a5fa;endArrow=block;endFill=1;fontColor=#93c5fd;" edge="1" parent="1" source="ui" target="api">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e4" value="binder" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#34d399;endArrow=block;endFill=1;fontColor=#86efac;" edge="1" parent="1" source="api" target="svc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e5" value="state sync" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#a78bfa;endArrow=block;endFill=1;fontColor=#c4b5fd;" edge="1" parent="1" source="svc" target="ui">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

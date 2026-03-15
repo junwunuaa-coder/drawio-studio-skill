@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="openclaw" modified="2026-03-12T12:30:00.000Z" agent="assistant" version="24.0.0" type="device">
+  <diagram id="pc_arch_handdrawn_v2" name="PermissionController-手绘架构-v2">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="PermissionController 架构（手绘风 v2）" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=28;fontStyle=1;fontFamily=Comic Sans MS;fontColor=#2f2f2f;" vertex="1" parent="1">
+          <mxGeometry x="50" y="20" width="760" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="apex" value="APEX 层：com.android.permission（主线可更新）" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;comic=1;arcSize=20;strokeWidth=2;fillColor=#fff2cc;strokeColor=#d6b656;fontFamily=Comic Sans MS;fontSize=16;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="120" y="90" width="1320" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="api" value="Framework API 层&#xa;framework-permission / framework-permission-s&#xa;RoleManager、SafetyCenterManager、AIDL 接口" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;comic=1;arcSize=18;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontFamily=Comic Sans MS;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="170" y="220" width="500" height="150" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="svc" value="System Server 服务层（service-permission）&#xa;RoleService / SafetyCenterService / ECM Service&#xa;持久化、状态聚合、策略执行" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;comic=1;arcSize=18;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;fontFamily=Comic Sans MS;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="780" y="220" width="560" height="150" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ui" value="App/UI 层（PermissionController）&#xa;权限弹窗、角色管理、安全中心页面&#xa;BroadcastReceiver + JobService" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;comic=1;arcSize=18;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;fontFamily=Comic Sans MS;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="320" y="500" width="920" height="150" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="test" value="测试层：CTS / Functional / Hostside / UI Tests" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;comic=1;arcSize=18;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;fontFamily=Comic Sans MS;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="420" y="740" width="720" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="note" value="主链路：UI 调用 Framework API → Binder/AIDL → system_server 服务执行 → 状态回流到 UI" style="shape=note;whiteSpace=wrap;html=1;sketch=1;comic=1;strokeWidth=2;fillColor=#ffffff;strokeColor=#666666;fontFamily=Comic Sans MS;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="360" y="390" width="860" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_apex_api" value="打包" style="edgeStyle=orthogonalEdgeStyle;rounded=1;curved=0;html=1;sketch=1;comic=1;strokeWidth=2;strokeColor=#8b6c00;endArrow=block;endFill=1;fontFamily=Comic Sans MS;fontSize=12;exitX=0.35;exitY=1;entryX=0.35;entryY=0;" edge="1" parent="1" source="apex" target="api">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_apex_svc" value="打包" style="edgeStyle=orthogonalEdgeStyle;rounded=1;curved=0;html=1;sketch=1;comic=1;strokeWidth=2;strokeColor=#8b6c00;endArrow=block;endFill=1;fontFamily=Comic Sans MS;fontSize=12;exitX=0.72;exitY=1;entryX=0.65;entryY=0;" edge="1" parent="1" source="apex" target="svc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_ui_api" value="API 调用" style="edgeStyle=orthogonalEdgeStyle;rounded=1;curved=0;html=1;sketch=1;comic=1;strokeWidth=2;strokeColor=#4f78a8;endArrow=block;endFill=1;fontFamily=Comic Sans MS;fontSize=12;exitX=0.25;exitY=0;entryX=0.45;entryY=1;" edge="1" parent="1" source="ui" target="api">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_api_svc" value="Binder/AIDL" style="edgeStyle=orthogonalEdgeStyle;rounded=1;curved=0;html=1;sketch=1;comic=1;strokeWidth=2;strokeColor=#2f7f2f;endArrow=block;endFill=1;fontFamily=Comic Sans MS;fontSize=12;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="api" target="svc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_svc_ui" value="状态回流" style="edgeStyle=orthogonalEdgeStyle;rounded=1;curved=0;html=1;sketch=1;comic=1;strokeWidth=2;strokeColor=#964444;endArrow=block;endFill=1;fontFamily=Comic Sans MS;fontSize=12;exitX=0.5;exitY=1;entryX=0.78;entryY=0;" edge="1" parent="1" source="svc" target="ui">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_test_ui" value="验证" style="edgeStyle=orthogonalEdgeStyle;rounded=1;curved=0;html=1;sketch=1;comic=1;strokeWidth=2;strokeColor=#7a5791;endArrow=block;endFill=1;fontFamily=Comic Sans MS;fontSize=12;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="test" target="ui">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
