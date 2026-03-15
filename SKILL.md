@@ -23,21 +23,16 @@ python3 scripts/diagram_studio.py template create --style handdrawn --output ~/D
 python3 scripts/diagram_studio.py template create --style dark-tech --output ~/Desktop/ai/demo.drawio --replacements '{"Architecture Diagram (Dark Tech Template)":"My Architecture"}'
 ```
 
-### Engine lifecycle
-
-```bash
-python3 scripts/diagram_studio.py engine install
-python3 scripts/diagram_studio.py engine status
-```
-
 ### Full operation groups
 
 ```bash
 python3 scripts/diagram_studio.py project new --preset 16:9 -o ~/Desktop/ai/demo.drawio
-python3 scripts/diagram_studio.py shape add rectangle -l "Gateway" --x 120 --y 120
-python3 scripts/diagram_studio.py connect add <source_id> <target_id> --style orthogonal -l "API"
-python3 scripts/diagram_studio.py export render ~/Desktop/ai/demo.png -f png
+python3 scripts/diagram_studio.py --project ~/Desktop/ai/demo.drawio shape add rectangle -l "Gateway" --x 120 --y 120
+python3 scripts/diagram_studio.py --project ~/Desktop/ai/demo.drawio connect add <source_id> <target_id> --style orthogonal -l "API"
+python3 scripts/diagram_studio.py --project ~/Desktop/ai/demo.drawio export render ~/Desktop/ai/demo.png -f png --overwrite
 ```
+
+No external repository download is required for core diagram operations.
 
 Use `python3 scripts/diagram_studio.py help-ops` for all supported operation groups.
 

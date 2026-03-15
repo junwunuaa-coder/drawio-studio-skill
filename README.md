@@ -3,6 +3,8 @@
 一个用于**快速生成、编辑、导出 drawio 图**的技能仓库。
 
 > 目标：既能用模板秒出图，也能做完整图编辑（节点、连线、页面、样式、导出）。
+>
+> 设计原则：**不依赖外部代码仓库**，核心能力全部内置在本 Skill 中。
 
 ---
 
@@ -78,20 +80,24 @@ python3 scripts/diagram_studio.py template create \
   --replacements '{"Architecture Diagram (Dark Tech Template)":"权限系统总览"}'
 ```
 
-## B. 完整编辑能力（首次建议安装本地绘图引擎）
+## B. 完整编辑能力（零外部仓库依赖）
 
-```bash
-python3 scripts/diagram_studio.py engine install
-python3 scripts/diagram_studio.py engine status
-```
-
-安装后即可直接用操作分组：
+无需下载任何第三方代码仓库，脚本可直接本地读写 `.drawio` XML：
 
 ```bash
 python3 scripts/diagram_studio.py project new --preset 16:9 -o ~/Desktop/ai/demo.drawio
-python3 scripts/diagram_studio.py shape add rectangle -l "API Gateway" --x 120 --y 120
-python3 scripts/diagram_studio.py shape list
-python3 scripts/diagram_studio.py export render ~/Desktop/ai/demo.png -f png
+python3 scripts/diagram_studio.py --project ~/Desktop/ai/demo.drawio shape add rectangle -l "API Gateway" --x 120 --y 120
+python3 scripts/diagram_studio.py --project ~/Desktop/ai/demo.drawio shape list
+```
+
+导出说明：
+- 导出 `.drawio/.xml`：内置支持
+- 导出 `png/pdf/svg/vsdx`：需要本机安装 draw.io Desktop（或设置 `DRAWIO_STUDIO_DRAWIO_BIN`）
+
+示例：
+
+```bash
+python3 scripts/diagram_studio.py --project ~/Desktop/ai/demo.drawio export render ~/Desktop/ai/demo.png -f png --overwrite
 ```
 
 查看全部分组说明：
