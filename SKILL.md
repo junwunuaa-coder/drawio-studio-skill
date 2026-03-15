@@ -1,39 +1,50 @@
 ---
 name: drawio-studio
-description: Create and refine drawio diagrams in multiple styles (hand-drawn, clean business, dark tech), especially for architecture charts, process flows, and technical explanation visuals. Use when asked to generate, beautify, or template-driven produce .drawio outputs for sharing or documentation.
+description: Create, edit, and export drawio diagrams with template-first workflow and full diagram operations. Use when asked to generate architecture charts, process flows, system diagrams, or style-customized drawio files.
 ---
 
 # Drawio Studio
 
-Use template-first workflow to produce consistent drawio outputs quickly.
+Use this skill to quickly create and refine drawio diagrams.
 
 ## Workflow
 
-1. Choose style template:
-   - `handdrawn` (whiteboard style)
-   - `clean` (business/report style)
-   - `dark-tech` (presentation style)
-2. Copy template to target output path.
-3. Apply optional text replacements.
-4. Return the generated `.drawio` file path.
+1. If user needs fast output, start with template creation (`template create`).
+2. If user needs precise editing, use operation groups (`project/shape/connect/page/export`).
+3. Export as PNG/PDF/SVG when requested.
 
 ## Commands
 
+### Template operations
+
 ```bash
-python3 scripts/list_templates.py
-python3 scripts/create_from_template.py --template clean --output ~/Desktop/ai/my-architecture.drawio
-python3 scripts/create_from_template.py --template dark-tech --output ~/Desktop/ai/my-architecture.drawio --replacements '{"Architecture Diagram (Dark Tech Template)":"My Product Architecture"}'
+python3 scripts/diagram_studio.py template list
+python3 scripts/diagram_studio.py template create --style handdrawn --output ~/Desktop/ai/demo.drawio
+python3 scripts/diagram_studio.py template create --style dark-tech --output ~/Desktop/ai/demo.drawio --replacements '{"Architecture Diagram (Dark Tech Template)":"My Architecture"}'
 ```
 
-## Templates
+### Engine lifecycle
 
-- `assets/templates/architecture-handdrawn.drawio`
-- `assets/templates/architecture-clean.drawio`
-- `assets/templates/architecture-dark-tech.drawio`
+```bash
+python3 scripts/diagram_studio.py engine install
+python3 scripts/diagram_studio.py engine status
+```
 
-## Editing guidance
+### Full operation groups
 
-- Prefer short layer labels and consistent arrow semantics.
-- Keep one main reading direction (top-down or left-right).
-- Avoid crossing arrows unless necessary.
-- Keep one legend/note block describing the main flow.
+```bash
+python3 scripts/diagram_studio.py project new --preset 16:9 -o ~/Desktop/ai/demo.drawio
+python3 scripts/diagram_studio.py shape add rectangle -l "Gateway" --x 120 --y 120
+python3 scripts/diagram_studio.py connect add <source_id> <target_id> --style orthogonal -l "API"
+python3 scripts/diagram_studio.py export render ~/Desktop/ai/demo.png -f png
+```
+
+Use `python3 scripts/diagram_studio.py help-ops` for all supported operation groups.
+
+## Styles
+
+- `handdrawn` — whiteboard / storytelling
+- `clean` — business report
+- `dark-tech` — presentation / demo
+
+Templates are in `assets/templates/`.

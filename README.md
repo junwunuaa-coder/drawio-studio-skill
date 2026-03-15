@@ -1,73 +1,104 @@
 # Drawio Studio Skill
 
-一个用于**快速生成与美化 drawio 架构图/流程图**的技能仓库。
+一个用于**快速生成、编辑、导出 drawio 图**的技能仓库。
 
-> 目标：让你在几分钟内得到可展示、可复用、可二次编辑的 `.drawio` 图文件。
-
----
-
-## 功能总览
-
-### 1) 多风格模板（开箱即用）
-
-仓库内置 3 套模板：
-
-- **手绘风（handdrawn）**
-  - 适合白板分享、教学、故事化讲解
-  - 圆角卡片、柔和配色、草图感视觉
-
-- **极简商务风（clean）**
-  - 适合汇报文档、PRD、方案评审
-  - 分层清晰、箭头规整、文本可读性高
-
-- **深色科技风（dark-tech）**
-  - 适合路演、技术宣讲、投屏展示
-  - 深色背景 + 高对比色，视觉冲击更强
+> 目标：既能用模板秒出图，也能做完整图编辑（节点、连线、页面、样式、导出）。
 
 ---
 
-### 2) 模板快速生成
+## 核心能力
 
-支持从模板一键生成新图文件，避免重复搭骨架。
+## 1) 多风格模板（内置）
+
+- **handdrawn**：手绘白板风
+- **clean**：极简商务风
+- **dark-tech**：深色科技风
+
+支持从模板快速创建 `.drawio` 文件，并在创建时做文本替换。
+
+---
+
+## 2) 完整图编辑能力
+
+该 Skill 提供完整操作分组：
+
+### Project（项目）
+- 新建图、打开图、保存
+- 查看项目信息
+- 查看原始 XML
+- 查看页面尺寸预设
+
+### Shape（节点）
+- 增加节点（多种形状）
+- 删除节点
+- 查询节点列表与详情
+- 修改节点文本
+- 移动、缩放节点
+- 设置节点样式（填充色、边框色、字号、圆角等）
+
+### Connect（连线）
+- 新增连线
+- 删除连线
+- 修改连线文案
+- 设置连线样式（直线/直角/曲线等）
+- 查询连线列表
+
+### Page（多页）
+- 新增页
+- 删除页
+- 重命名页
+- 列出所有页
+
+### Export（导出）
+- 导出 `png / pdf / svg / vsdx / xml`
+- 支持页码、缩放、宽高、透明背景、裁剪等参数
+
+### Session（会话）
+- 查看状态
+- undo / redo
+- 会话持久化与恢复
+
+---
+
+## 快速开始
+
+## A. 模板能力（无需额外步骤）
 
 ```bash
-python3 scripts/create_from_template.py --template clean --output ~/Desktop/ai/my-architecture.drawio
+python3 scripts/diagram_studio.py template list
+python3 scripts/diagram_studio.py template create --style clean --output ~/Desktop/ai/my-arch.drawio
 ```
 
----
-
-### 3) 文本批量替换
-
-支持在生成时替换标题/模块文案，快速产出定制版本。
+支持替换文案：
 
 ```bash
-python3 scripts/create_from_template.py \
-  --template dark-tech \
-  --output ~/Desktop/ai/my-architecture.drawio \
+python3 scripts/diagram_studio.py template create \
+  --style dark-tech \
+  --output ~/Desktop/ai/my-arch.drawio \
   --replacements '{"Architecture Diagram (Dark Tech Template)":"权限系统总览"}'
 ```
 
----
+## B. 完整编辑能力（首次建议安装本地绘图引擎）
 
-### 4) 结构化图层建议
+```bash
+python3 scripts/diagram_studio.py engine install
+python3 scripts/diagram_studio.py engine status
+```
 
-模板默认采用分层结构，便于统一团队表达：
+安装后即可直接用操作分组：
 
-- Layer 1：平台/打包层
-- Layer 2：API 与 Service 层
-- Layer 3：UI/交互层
-- Layer 4：测试/验证层
+```bash
+python3 scripts/diagram_studio.py project new --preset 16:9 -o ~/Desktop/ai/demo.drawio
+python3 scripts/diagram_studio.py shape add rectangle -l "API Gateway" --x 120 --y 120
+python3 scripts/diagram_studio.py shape list
+python3 scripts/diagram_studio.py export render ~/Desktop/ai/demo.png -f png
+```
 
-并预置主链路箭头（调用、执行、状态回流）。
+查看全部分组说明：
 
----
-
-### 5) 可扩展模板体系
-
-你可以继续按同样规范新增模板：
-
-- `assets/templates/architecture-xxx.drawio`
-- 在 `scripts/create_from_template.py` 注册即可复用
+```bash
+python3 scripts/diagram_studio.py help-ops
+```
 
 ---
 
@@ -77,57 +108,38 @@ python3 scripts/create_from_template.py \
 drawio-studio-skill/
 ├─ SKILL.md
 ├─ README.md
+├─ LICENSE
 ├─ assets/
 │  └─ templates/
 │     ├─ architecture-handdrawn.drawio
 │     ├─ architecture-clean.drawio
 │     └─ architecture-dark-tech.drawio
 ├─ scripts/
-│  ├─ list_templates.py
-│  └─ create_from_template.py
+│  ├─ diagram_studio.py
+│  ├─ create_from_template.py
+│  └─ list_templates.py
 └─ references/
+   └─ style-guide.md
 ```
 
 ---
 
-## 使用方法
+## 典型场景
 
-### 1. 查看可用模板
-
-```bash
-python3 scripts/list_templates.py
-```
-
-### 2. 生成图文件
-
-```bash
-python3 scripts/create_from_template.py --template handdrawn --output ~/Desktop/ai/demo.drawio
-```
-
-### 3. 用 draw.io / diagrams.net 打开并继续编辑
-
-- 调整模块文本
-- 调整连线
-- 导出 PNG / PDF
+- 技术架构图（分层、模块、调用链）
+- 业务流程图（状态流、审批流）
+- 排障图（问题路径、恢复路径）
+- 会议复盘图（阶段与责任人）
 
 ---
 
-## 适用场景
+## 可扩展方向（Roadmap）
 
-- 技术架构讲解
-- 业务流程梳理
-- 权限与调用链说明
-- 项目复盘图示
-- 会议纪要图形化
-
----
-
-## 后续可扩展能力（Roadmap）
-
-- 自动生成泳道图模板
-- 自动生成时序图模板
-- 自动生成多页图（overview + detail）
-- 增加中英双语模板
+- 泳道图模板
+- 时序图模板
+- 组织结构图模板
+- 自动配色与排版规则
+- 双语模板（中英切换）
 
 ---
 
